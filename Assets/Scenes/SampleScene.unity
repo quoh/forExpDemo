@@ -1068,6 +1068,12 @@ MonoBehaviour:
   sphereObjectShoulder: {fileID: 552111309}
   sphereObjectWaist: {fileID: 364940543}
   expStatus: 0
+  startShoulderPos: {fileID: 0}
+  startWaistPos: {fileID: 0}
+  startTime: 0
+  endShoulderPos: {fileID: 0}
+  endWaistPos: {fileID: 0}
+  endTime: 0
 --- !u!4 &1504944777
 Transform:
   m_ObjectHideFlags: 0

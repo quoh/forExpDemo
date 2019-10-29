@@ -20,5 +20,8 @@ public class EndButtonScript : MonoBehaviour
     {
         Debug.Log("実験終了");
         m.expStatus = 0;
+        m.endTime = Time.time;
+        Debug.Log(m.endTime);
+        Debug.Log(m.endTime - m.startTime);
     }
 }

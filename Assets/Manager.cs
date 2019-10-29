@@ -17,6 +17,13 @@ public class Manager : MonoBehaviour
     string usrname = "usr-trialCount";
     public int expStatus = 0;//0:実験前後 1:実験中
 
+    public Transform startShoulderPos;
+    public Transform startWaistPos;
+    
+    public float startTime;
+    public float endTime;
+
+
     void Start()
     {
         count = 0;
