@@ -28,6 +28,10 @@ public class LimitBreakScript : MonoBehaviour
             return;
         }
 
+        if (m.overCount > 90){
+            m.LimitStatus = 1;
+        }
+
         if(totalTime < 0f){
             m.LimitStatus = 0;
             m.expStatus = 0;
@@ -48,6 +52,6 @@ public class LimitBreakScript : MonoBehaviour
 
     public void OnClick()
     {
-        m.LimitStatus = 1;
+        //m.LimitStatus = 1;
     }
 }
