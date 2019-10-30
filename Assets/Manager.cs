@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 
+//閾値決めて、限界突破タイムに突入するコードを書かないとね
+
+
 public class Manager : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -16,6 +19,11 @@ public class Manager : MonoBehaviour
     int count;
     string usrname = "usr-trialCount";
     public int expStatus = 0;//0:実験前後 1:実験中
+    public int LimitStatus = 0;//0:限界突破前 1:限界突破中
+    public int countDown = 5;
+
+    public int modeStatus = 0;//0:練習 1:本番
+
 
     public Transform startShoulderPos;
     public Transform startWaistPos;
@@ -27,6 +35,7 @@ public class Manager : MonoBehaviour
     void Start()
     {
         count = 0;
+        countDown = 5; 
         string init = "count,dateTime,degree,shoulderX,shoulderY,shoulderZ,waistX,waistY,waistZ";
         StreamWriter sw;
         FileInfo fi;
