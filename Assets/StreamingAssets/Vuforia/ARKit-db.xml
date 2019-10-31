@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
   <Tracking>
-    <ImageTarget name="waistMK" size="400.000000 400.000000" />
+    <ImageTarget name="2" size="2577.000000 2577.000000" />
+    <ImageTarget name="1" size="2755.000000 2755.000000" />
+    <ImageTarget name="testmarker" size="600.000000 399.556061" />
     <ImageTarget name="shoulderMK" size="400.000000 400.000000" />
+    <ImageTarget name="waistMK" size="400.000000 400.000000" />
     <ImageTarget name="shipcat-icon" size="347.000000 346.000000" />
   </Tracking>
 </QCARConfig>
