@@ -24,17 +24,18 @@ public class LimitBreakScript : MonoBehaviour
     void Update()
     {
         Text timerText = LimitBreakText.GetComponent<Text> ();
+        //限界突破していないとき投げる
         if (m.LimitStatus == 0){
             return;
         }
 
-        if (m.overCount > 90){
+        //5秒（60fps）を超えたら限界とみなす
+        if (m.overCount > 300){
             m.LimitStatus = 1;
         }
 
         if(totalTime < 0f){
             m.LimitStatus = 0;
-            m.expStatus = 0;
             return;
         } 
 
@@ -52,6 +53,6 @@ public class LimitBreakScript : MonoBehaviour
 
     public void OnClick()
     {
-        //m.LimitStatus = 1;
+        m.LimitStatus = 1;
     }
 }

@@ -27,7 +27,7 @@ public class Manager : MonoBehaviour
     //限界突破への道
     public int overCount;
     public bool isSeqFlag;
-    public float rangeLimit = Mathf.Pow(2.5f,2);//限界とみなす幅:上下5㎝
+    public float rangeLimit = Mathf.Pow(0.005f,2);//限界とみなす幅:上下5㎝
     //public float rangeX = 0f;
     public float rangeY = 0f;
 
@@ -88,21 +88,30 @@ public class Manager : MonoBehaviour
         //matrixText.text = degree.ToString() + "°\n肩X: " + shoulderPosWorldPos.x.ToString() + "\n肩Y:"+ shoulderPosWorldPos.y.ToString() + "\n腰X:" + waistPosWorldPos.x.ToString() + "\n腰Y:" + waistPosWorldPos.y.ToString();
         StreamWriter sw;
         FileInfo fi;
+        //実験中であるか
         if (expStatus == 1){
             //judgeLimit();
-            Debug.Log(overCount);
-            Debug.Log(trsWaist.position.y - startWaistPos.position.y);
-            rangeY = Mathf.Pow((float)(trsWaist.position.y - startWaistPos.position.y),2);
+            //Debug.Log(overCount);
+            Debug.Log("trsWaist.position.y:" + trsWaist.position.y);
+            float sep = Mathf.Abs(trsWaist.position.y) - Mathf.Abs(startWaistPos.position.y);
+            Debug.Log("差:" + sep);
+            rangeY = Mathf.Pow(sep,2);
+            //閾値超えてたらカウント開始
             if (rangeY > rangeLimit){
                 isSeqFlag = true;
                 overCount++;
             } else {
                 isSeqFlag = false;
             }
+
             if (isSeqFlag == false){
                 overCount = 0;
             }
-
+            //５秒超えたら終了
+            if (overCount > 300){
+                LimitStatus = 1;
+            }
+            //csvファイル書き出し
             string datetime = DateTime.Now.ToString("yyyy/MM/dd ") + DateTime.Now.ToLongTimeString() + "." + DateTime.Now.Millisecond.ToString(); 
             string shoulderText = trsShoulder.position.x.ToString() + "," + trsShoulder.position.y.ToString() + "," + trsShoulder.position.z.ToString();
             string waistText = trsWaist.position.x.ToString() + "," + trsWaist.position.y.ToString() + "," + trsWaist.position.z.ToString();
