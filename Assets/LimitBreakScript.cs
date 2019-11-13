@@ -30,7 +30,7 @@ public class LimitBreakScript : MonoBehaviour
         }
 
         //5秒（60fps）を超えたら限界とみなす
-        if (m.overCount > 300){
+        if (m.overCount > 180){
             m.LimitStatus = 1;
         }
 

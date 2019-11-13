@@ -43,5 +43,8 @@ public class viewScript : MonoBehaviour
         if (m.LimitStatus == 1){
             countDownText.SetActive(true);
         }
+        else if (m.LimitStatus == 0){
+            countDownText.SetActive(false);
+        }
     }
 }
