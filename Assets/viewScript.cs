@@ -17,6 +17,7 @@ public class viewScript : MonoBehaviour
     public GameObject startButton;
     public GameObject endButton;
     public GameObject countDownText;
+    public GameObject moveActionText;
     
     // Start is called before the first frame update
     void Start()
@@ -31,6 +32,7 @@ public class viewScript : MonoBehaviour
             startButton.SetActive(true);
             endButton.SetActive(false);
             countDownText.SetActive(false);
+            moveActionText.SetActive(false);
         }
         else if (m.expStatus == 1)
         {

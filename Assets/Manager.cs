@@ -14,20 +14,20 @@ public class Manager : MonoBehaviour
     public GameObject matrixObject; //text
     public GameObject sphereObjectShoulder; //sphere肩
     public GameObject sphereObjectWaist; //sphere腰
-    public Camera cam;
+    public GameObject LimitText;//ずれていることを知らせる
+    // public Camera cam;
 
     int count;
     string usrname = "usr-trialCount";
     public int expStatus = 0;//0:実験前後 1:実験中
     public int LimitStatus = 0;//0:限界突破前 1:限界突破中
-    public int countDown = 5;
 
     public int modeStatus = 0;//0:練習 1:本番
 
     //限界突破への道
     public int overCount;
     public bool isSeqFlag;
-    public float rangeLimit = 10;//限界とみなす幅:上下5㎝
+    public float rangeLimit = 1;//限界とみなす幅:上下5㎝
     //public float rangeX = 0f;
     public float rangeY = 0f;
 
@@ -43,7 +43,6 @@ public class Manager : MonoBehaviour
     void Start()
     {
         count = 0;
-        countDown = 5; 
         
         overCount = 0;
         isSeqFlag = false;
@@ -57,7 +56,7 @@ public class Manager : MonoBehaviour
         sw.Flush();
         sw.Close();
 
-        cam = Camera.main;
+        // cam = Camera.main;
     }
 
     // Update is called once per frame
@@ -99,6 +98,8 @@ public class Manager : MonoBehaviour
             //Debug.Log(waistPos.y);
             rangeY = Mathf.Abs(Mathf.Abs(testVec.y) - Mathf.Abs(waistPos.y));
             Debug.Log("差:" + rangeY);
+            Debug.Log("LimitStatus:" + LimitStatus);
+            Debug.Log("OverCount:" + overCount);     
             //閾値超えてたらカウント開始
             if (rangeY > rangeLimit){
                 isSeqFlag = true;
@@ -109,11 +110,22 @@ public class Manager : MonoBehaviour
 
             if (isSeqFlag == false){
                 overCount = 0;
+                //ずれている表示を消す
+                LimitText.SetActive(false);
             }
-            //５秒超えたら限界突破開始
+            if (isSeqFlag == true && LimitStatus == 0){
+                //ずれていることを表示
+                Text limText = LimitText.GetComponent<Text> ();
+                limText.text = "腰がずれています！";
+                LimitText.SetActive(true);
+            }
+
+            //３秒超えたら限界突破開始
             if (overCount > 180){
                 LimitStatus = 1;
+                LimitText.SetActive(false);
             }
+
             //csvファイル書き出し
             string datetime = DateTime.Now.ToString("yyyy/MM/dd ") + DateTime.Now.ToLongTimeString() + "." + DateTime.Now.Millisecond.ToString(); 
             string shoulderText = trsShoulder.position.x.ToString() + "," + trsShoulder.position.y.ToString() + "," + trsShoulder.position.z.ToString();
