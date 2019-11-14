@@ -98,8 +98,8 @@ public class Manager : MonoBehaviour
             //Debug.Log(waistPos.y);
             rangeY = Mathf.Abs(Mathf.Abs(testVec.y) - Mathf.Abs(waistPos.y));
             Debug.Log("差:" + rangeY);
-            Debug.Log("LimitStatus:" + LimitStatus);
-            Debug.Log("OverCount:" + overCount);     
+            // Debug.Log("LimitStatus:" + LimitStatus);
+            // Debug.Log("OverCount:" + overCount);     
             //閾値超えてたらカウント開始
             if (rangeY > rangeLimit){
                 isSeqFlag = true;
