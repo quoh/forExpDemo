@@ -18,6 +18,7 @@ public class viewScript : MonoBehaviour
     public GameObject endButton;
     public GameObject countDownText;
     public GameObject moveActionText;
+    public GameObject matrixText;
     
     // Start is called before the first frame update
     void Start()
@@ -26,6 +27,12 @@ public class viewScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (m.modeStatus == 0){
+            matrixText.SetActive(true);
+        } else if (m.modeStatus == 1) {
+            matrixText.SetActive(false); 
+        }
+
         if (m.expStatus == 0)
         {
             LimitButton.SetActive(false);

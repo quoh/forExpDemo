@@ -10,6 +10,7 @@ public class LimitBreakScript : MonoBehaviour
 
     float totalTime;
     int minute = 0;
+
     float seconds = 3f;
     float oldSeconds;
     public GameObject LimitBreakText;
@@ -54,5 +55,8 @@ public class LimitBreakScript : MonoBehaviour
     public void OnClick()
     {
         m.LimitStatus = 1;
+        seconds = 3f;
+        totalTime = minute * 60 + seconds;
+        oldSeconds = 0f;
     }
 }

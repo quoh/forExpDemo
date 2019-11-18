@@ -22,14 +22,12 @@ public class Manager : MonoBehaviour
     public int expStatus = 0;//0:実験前後 1:実験中
     public int LimitStatus = 0;//0:限界突破前 1:限界突破中
 
-    public int modeStatus = 0;//0:練習 1:本番
+    public int modeStatus;//0:練習 1:本番
 
     //限界突破への道
     public int overCount;
     public bool isSeqFlag;
-    public float rangeLimit = 1;//限界とみなす幅:上下5㎝
-    //public float rangeX = 0f;
-    public float rangeY = 0f;
+    public float rangeVec= 0f;
 
     public Transform startShoulderPos;
     public Transform startWaistPos;
@@ -37,13 +35,13 @@ public class Manager : MonoBehaviour
     public float startTime;
     public float endTime;
 
-    public Vector2 testVec;
+    public Vector2 startVec;
     public Vector2 expeVec;
 
     void Start()
     {
         count = 0;
-        
+        modeStatus = 1;//0：練習 1：本番
         overCount = 0;
         isSeqFlag = false;
 
@@ -70,20 +68,9 @@ public class Manager : MonoBehaviour
         Vector2 shoulderPos = new Vector2(trsShoulder.position.x,trsShoulder.position.y);
         Vector2 waistPos = new Vector2(trsWaist.position.x,trsWaist.position.y);
 
-        // Vector3 shoulderPosVec3 = new Vector3(trsShoulder.position.x,trsShoulder.position.y,trsShoulder.position.z);
-        // Vector3 waistPosVec3 = new Vector3(trsWaist.position.x,trsWaist.position.y,trsWaist.position.z);
-        
-        // Vector3 shoulderPosWorldPos = cam.ScreenToWorldPoint(shoulderPosVec3);
-        // Vector3 waistPosWorldPos = cam.ScreenToWorldPoint(waistPosVec3);
-
-
         Vector2 dif = shoulderPos - waistPos;
         float radian = Mathf.Atan2(dif.y, dif.x);
         float degree = radian * Mathf.Rad2Deg;
-        
-        // Vector3 dif = shoulderPosWorldPos - waistPosWorldPos;
-        // float radian = Mathf.Atan2(dif.y, dif.x);
-        // float degree = radian * Mathf.Rad2Deg;
 
         matrixText.text = degree.ToString() + "°\n肩X: " + trsShoulder.position.x.ToString() + "\n肩Y:"+ trsShoulder.position.y.ToString() + "\n腰X:" + trsWaist.position.x.ToString() + "\n腰Y:" + trsWaist.position.y.ToString();
         //matrixText.text = degree.ToString() + "°\n肩X: " + shoulderPosWorldPos.x.ToString() + "\n肩Y:"+ shoulderPosWorldPos.y.ToString() + "\n腰X:" + waistPosWorldPos.x.ToString() + "\n腰Y:" + waistPosWorldPos.y.ToString();
@@ -96,12 +83,12 @@ public class Manager : MonoBehaviour
             //Debug.Log("trsWaist.position.y:" + trsWaist.position.y);
             //double sep = Mathf.Abs(trsWaist.position.y) - Mathf.Abs(startWaistPos.position.y);
             //Debug.Log(waistPos.y);
-            rangeY = Mathf.Abs(Mathf.Abs(testVec.y) - Mathf.Abs(waistPos.y));
-            Debug.Log("差:" + rangeY);
+            rangeVec = Vector2.Distance(startVec, waistPos);
+            Debug.Log("差:" + rangeVec);
             // Debug.Log("LimitStatus:" + LimitStatus);
             // Debug.Log("OverCount:" + overCount);     
             //閾値超えてたらカウント開始
-            if (rangeY > rangeLimit){
+            if (rangeVec > 25f){
                 isSeqFlag = true;
                 overCount++;
             } else {
