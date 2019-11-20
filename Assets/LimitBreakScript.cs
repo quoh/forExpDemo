@@ -11,7 +11,7 @@ public class LimitBreakScript : MonoBehaviour
     float totalTime;
     int minute = 0;
 
-    float seconds = 3f;
+    float seconds = 6f;
     float oldSeconds;
     public GameObject LimitBreakText;
     // Start is called before the first frame update

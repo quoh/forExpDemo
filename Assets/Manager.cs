@@ -18,7 +18,7 @@ public class Manager : MonoBehaviour
     // public Camera cam;
 
     int count;
-    string usrname = "usr-trialCount";
+    string usrname = "nonaka-PreTest-Day2-01";
     public int expStatus = 0;//0:実験前後 1:実験中
     public int LimitStatus = 0;//0:限界突破前 1:限界突破中
 
@@ -45,10 +45,11 @@ public class Manager : MonoBehaviour
         overCount = 0;
         isSeqFlag = false;
 
-        string init = "count,dateTime,degree,shoulderX,shoulderY,shoulderZ,waistX,waistY,waistZ,expStatus,LimitStatus";
+        string init = "count,dateTime,waistX,waistY,waistZ,expStatus,LimitStatus";
+        //"count,dateTime,degree,shoulderX,shoulderY,shoulderZ,waistX,waistY,waistZ,expStatus,LimitStatus";
         StreamWriter sw;
         FileInfo fi;
-        fi = new FileInfo("./Assets/Resources/" + usrname +"res.csv");
+        fi = new FileInfo("./Assets/Resources/Pretest/" + usrname +"res.csv");
         sw = fi.AppendText();
         sw.WriteLine(init);
         sw.Flush();
@@ -83,12 +84,12 @@ public class Manager : MonoBehaviour
             //Debug.Log("trsWaist.position.y:" + trsWaist.position.y);
             //double sep = Mathf.Abs(trsWaist.position.y) - Mathf.Abs(startWaistPos.position.y);
             //Debug.Log(waistPos.y);
-            rangeVec = Vector2.Distance(startVec, waistPos);
+            rangeVec = Mathf.Abs(Mathf.Abs(startVec.y)-Mathf.Abs(waistPos.y));//Vector2.Distance(startVec, waistPos);
             Debug.Log("差:" + rangeVec);
             // Debug.Log("LimitStatus:" + LimitStatus);
             // Debug.Log("OverCount:" + overCount);     
             //閾値超えてたらカウント開始
-            if (rangeVec > 25f){
+            if (rangeVec > 30f){//50fだと余裕ありすぎ25fはわからん30fあたりがいい感じかもしれぬ
                 isSeqFlag = true;
                 overCount++;
             } else {
@@ -108,7 +109,7 @@ public class Manager : MonoBehaviour
             }
 
             //３秒超えたら限界突破開始
-            if (overCount > 180){
+            if (overCount > 90){
                 LimitStatus = 1;
                 LimitText.SetActive(false);
             }
@@ -117,8 +118,8 @@ public class Manager : MonoBehaviour
             string datetime = DateTime.Now.ToString("yyyy/MM/dd ") + DateTime.Now.ToLongTimeString() + "." + DateTime.Now.Millisecond.ToString(); 
             string shoulderText = trsShoulder.position.x.ToString() + "," + trsShoulder.position.y.ToString() + "," + trsShoulder.position.z.ToString();
             string waistText = trsWaist.position.x.ToString() + "," + trsWaist.position.y.ToString() + "," + trsWaist.position.z.ToString();
-            string txt = count + "," + datetime + "," + degree.ToString() + "," + shoulderText + "," + waistText + "," + expStatus + "," + LimitStatus;
-            fi = new FileInfo("./Assets/Resources/" + usrname +"res.csv");
+            string txt = count + "," + datetime + "," /*+ degree.ToString() + "," + shoulderText + "," */+ waistText + "," + expStatus + "," + LimitStatus;
+            fi = new FileInfo("./Assets/Resources/Pretest/" + usrname +"res.csv");
             sw = fi.AppendText();
             sw.WriteLine(txt);
             sw.Flush();
