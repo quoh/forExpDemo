@@ -8,6 +8,7 @@ public class StartButtonScript : MonoBehaviour
     // Start is called before the first frame update
     public Manager m;
     public GameObject waistSphere;
+    public GameObject startPosTex;
     void Start()
     {
         
@@ -28,9 +29,8 @@ public class StartButtonScript : MonoBehaviour
         m.startShoulderPos = m.sphereObjectShoulder.GetComponent<Transform> ();
         m.startWaistPos = m.sphereObjectWaist.GetComponent<Transform> ();
 
-        // Transform waistpos = waistSphere.GetComponent<Transform> ();
-        // GameObject startObj = 
-        // startObj.AddComponent<Sphere> ();
+        Transform startWaistTrs = startPosTex.GetComponent<Transform> ();
+        startWaistTrs.position = m.startWaistPos.position;
 
         m.startVec = new Vector2(m.startWaistPos.position.x, m.startWaistPos.position.y);
         //Debug.Log(m.startShoulderPos.position.ToString());

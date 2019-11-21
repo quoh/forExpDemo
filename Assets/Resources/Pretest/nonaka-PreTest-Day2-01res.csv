@@ -1,6 +1,4 @@
 count,dateTime,waistX,waistY,waistZ,expStatus,LimitStatus
-count,dateTime,waistX,waistY,waistZ,expStatus,LimitStatus
-count,dateTime,waistX,waistY,waistZ,expStatus,LimitStatus
 0,2019/11/20 14:14:40.140,-10.2731,98.97189,629.3779,1,0
 1,2019/11/20 14:14:40.162,-10.66968,97.78167,628.8237,1,0
 2,2019/11/20 14:14:40.197,-10.93764,95.99184,628.5293,1,0

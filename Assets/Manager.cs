@@ -18,16 +18,18 @@ public class Manager : MonoBehaviour
     // public Camera cam;
 
     int count;
-    string usrname = "nonaka-PreTest-Day2-01";
+    string usrname = "kajita-PreTest-Day2-01";
     public int expStatus = 0;//0:実験前後 1:実験中
     public int LimitStatus = 0;//0:限界突破前 1:限界突破中
 
     public int modeStatus;//0:練習 1:本番
+    public int overStatus;//-1:下がっている 0:大丈夫 1:上がっている
 
     //限界突破への道
     public int overCount;
     public bool isSeqFlag;
     public float rangeVec= 0f;
+    public float rangeVecSigned = 0;
 
     public Transform startShoulderPos;
     public Transform startWaistPos;
@@ -42,10 +44,11 @@ public class Manager : MonoBehaviour
     {
         count = 0;
         modeStatus = 1;//0：練習 1：本番
+        overStatus = 0;
         overCount = 0;
         isSeqFlag = false;
 
-        string init = "count,dateTime,waistX,waistY,waistZ,expStatus,LimitStatus";
+        string init = "count,dateTime,waistX,waistY,waistZ,expStatus,LimitStatus,overStatus";
         //"count,dateTime,degree,shoulderX,shoulderY,shoulderZ,waistX,waistY,waistZ,expStatus,LimitStatus";
         StreamWriter sw;
         FileInfo fi;
@@ -85,6 +88,7 @@ public class Manager : MonoBehaviour
             //double sep = Mathf.Abs(trsWaist.position.y) - Mathf.Abs(startWaistPos.position.y);
             //Debug.Log(waistPos.y);
             rangeVec = Mathf.Abs(Mathf.Abs(startVec.y)-Mathf.Abs(waistPos.y));//Vector2.Distance(startVec, waistPos);
+            rangeVecSigned = startVec.y-waistPos.y;
             Debug.Log("差:" + rangeVec);
             // Debug.Log("LimitStatus:" + LimitStatus);
             // Debug.Log("OverCount:" + overCount);     
@@ -100,16 +104,23 @@ public class Manager : MonoBehaviour
                 overCount = 0;
                 //ずれている表示を消す
                 LimitText.SetActive(false);
+                overStatus = 0;
             }
             if (isSeqFlag == true && LimitStatus == 0){
                 //ずれていることを表示
                 Text limText = LimitText.GetComponent<Text> ();
-                limText.text = "腰がずれています！";
+                if (rangeVecSigned > 0){
+                    limText.text = "腰が下がっています！";
+                    overStatus = -1;
+                } else if (rangeVecSigned < 0){
+                    limText.text = "腰が上がっています！";
+                    overStatus = 1;
+                }
                 LimitText.SetActive(true);
             }
 
-            //３秒超えたら限界突破開始
-            if (overCount > 90){
+            //2秒超えたら限界突破開始
+            if (overCount > 60){
                 LimitStatus = 1;
                 LimitText.SetActive(false);
             }
@@ -118,7 +129,7 @@ public class Manager : MonoBehaviour
             string datetime = DateTime.Now.ToString("yyyy/MM/dd ") + DateTime.Now.ToLongTimeString() + "." + DateTime.Now.Millisecond.ToString(); 
             string shoulderText = trsShoulder.position.x.ToString() + "," + trsShoulder.position.y.ToString() + "," + trsShoulder.position.z.ToString();
             string waistText = trsWaist.position.x.ToString() + "," + trsWaist.position.y.ToString() + "," + trsWaist.position.z.ToString();
-            string txt = count + "," + datetime + "," /*+ degree.ToString() + "," + shoulderText + "," */+ waistText + "," + expStatus + "," + LimitStatus;
+            string txt = count + "," + datetime + "," /*+ degree.ToString() + "," + shoulderText + "," */+ waistText + "," + expStatus + "," + LimitStatus + "," + overStatus;
             fi = new FileInfo("./Assets/Resources/Pretest/" + usrname +"res.csv");
             sw = fi.AppendText();
             sw.WriteLine(txt);
