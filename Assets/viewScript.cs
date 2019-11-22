@@ -41,7 +41,7 @@ public class viewScript : MonoBehaviour
             endButton.SetActive(false);
             countDownText.SetActive(false);
             moveActionText.SetActive(false);
-            startPosText.SetActive(false);
+            //startPosText.SetActive(false);
         }
         else if (m.expStatus == 1)
         {
@@ -49,7 +49,7 @@ public class viewScript : MonoBehaviour
             startButton.SetActive(false);
             endButton.SetActive(true);
             countDownText.SetActive(false);
-            startPosText.SetActive(true);
+            //startPosText.SetActive(true);
         }
 
         if (m.LimitStatus == 1){

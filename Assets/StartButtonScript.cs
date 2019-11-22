@@ -29,8 +29,8 @@ public class StartButtonScript : MonoBehaviour
         m.startShoulderPos = m.sphereObjectShoulder.GetComponent<Transform> ();
         m.startWaistPos = m.sphereObjectWaist.GetComponent<Transform> ();
 
-        Transform startWaistTrs = startPosTex.GetComponent<Transform> ();
-        startWaistTrs.position = m.startWaistPos.position;
+        // Transform startWaistTrs = startPosTex.GetComponent<Transform> ();
+        // startWaistTrs.localPosition = m.startWaistPos.position;
 
         m.startVec = new Vector2(m.startWaistPos.position.x, m.startWaistPos.position.y);
         //Debug.Log(m.startShoulderPos.position.ToString());

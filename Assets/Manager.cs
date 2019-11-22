@@ -18,12 +18,13 @@ public class Manager : MonoBehaviour
     // public Camera cam;
 
     int count;
-    string usrname = "kajita-PreTest-Day2-01";
+    string usrname = "kigoro-PreTest-Day1-04";
     public int expStatus = 0;//0:実験前後 1:実験中
     public int LimitStatus = 0;//0:限界突破前 1:限界突破中
 
     public int modeStatus;//0:練習 1:本番
     public int overStatus;//-1:下がっている 0:大丈夫 1:上がっている
+    public int overCounter;
 
     //限界突破への道
     public int overCount;
@@ -93,9 +94,10 @@ public class Manager : MonoBehaviour
             // Debug.Log("LimitStatus:" + LimitStatus);
             // Debug.Log("OverCount:" + overCount);     
             //閾値超えてたらカウント開始
-            if (rangeVec > 30f){//50fだと余裕ありすぎ25fはわからん30fあたりがいい感じかもしれぬ
+            if (rangeVec > 25f){//50fだと余裕ありすぎ25fはわからん30fあたりがいい感じかもしれぬ
                 isSeqFlag = true;
                 overCount++;
+                overCounter++;
             } else {
                 isSeqFlag = false;
             }
@@ -119,8 +121,8 @@ public class Manager : MonoBehaviour
                 LimitText.SetActive(true);
             }
 
-            //2秒超えたら限界突破開始
-            if (overCount > 60){
+            //2.5秒超えたら限界突破開始
+            if (overCount > 75){
                 LimitStatus = 1;
                 LimitText.SetActive(false);
             }

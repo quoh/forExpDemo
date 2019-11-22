@@ -23,5 +23,6 @@ public class EndButtonScript : MonoBehaviour
         m.endTime = Time.time;
         //Debug.Log(m.endTime);
         Debug.Log(m.endTime - m.startTime);
+        Debug.Log(m.overCount);
     }
 }
